@@ -11,13 +11,9 @@ end
 
 group :development do
   gem 'sqlite3'
-<<<<<<< HEAD
-
-
-=======
   gem 'pry-rails'
->>>>>>> 607726f3d529c6ec053acd4b91dfc07b9b3f810f
 end
+
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
