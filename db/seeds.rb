@@ -9,6 +9,7 @@
 end
 posts = Post.all
 
+
 # Create Comments
 # #3
 100.times do
@@ -18,6 +19,10 @@ posts = Post.all
     body: RandomData.random_paragraph
   )
 end
+
+puts "#{Post.count}"
+Post.find_or_create_by(title: "I am INDEMPOTENT!", body: "And I'm not out of control at all.")
+puts "#{Post.count}"
 
 puts "Seed finished"
 puts "#{Post.count} posts created"
