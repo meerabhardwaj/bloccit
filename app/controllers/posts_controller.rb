@@ -23,11 +23,11 @@ class PostsController < ApplicationController
     @post.body = params[:post][:body]
 
     if @post.save
-      flash[:notice] = "Post was saved"
+      flash[:notice] = "Post was saved."
       redirect_to @post
     else
-      flash[:error] = "There was an error saving the post. Please try again."
-      render @new
+      flash.now[:alert] = "There was an error saving the post. Please try again."
+      render :new
     end
   end
 
