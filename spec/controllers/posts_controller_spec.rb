@@ -8,19 +8,16 @@ RSpec.describe PostsController, type: :controller do
   describe "GET new" do
     it "returns http success" do
       get :new, topic_id: my_topic.id
-
       expect(response).to have_http_status(:success)
     end
 
     it "renders the #new view" do
       get :new, topic_id: my_topic.id
-
       expect(response).to render_template :new
     end
 
     it "instantiates @post" do
       get :new, topic_id: my_topic.id
-
       expect(assigns(:post)).not_to be_nil
     end
   end
@@ -33,14 +30,12 @@ RSpec.describe PostsController, type: :controller do
 
     it "assigns the new post to @post" do
       post :create, topic_id: my_topic.id, post: {title: RandomData.random_sentence, body: RandomData.random_paragraph}
-
       expect(assigns(:post)).to eq Post.last
     end
 
     it "redirects to the new post" do
       post :create, topic_id: my_topic.id, post: {title: RandomData.random_sentence, body: RandomData.random_paragraph}
-
-       expect(response).to redirect_to [my_topic, Post.last]
+      expect(response).to redirect_to [my_topic, Post.last]
      end
   end
 
@@ -49,6 +44,7 @@ RSpec.describe PostsController, type: :controller do
        get :show, topic_id: my_topic.id, id: my_post.id
        expect(response).to have_http_status(:success)
      end
+     
      it "renders the #show view" do
        get :show, topic_id: my_topic.id, id: my_post.id
        expect(response).to render_template :show
@@ -104,16 +100,16 @@ RSpec.describe PostsController, type: :controller do
 
    describe "DELETE destroy" do
      it "deletes the post" do
-       delete :destroy, {id: my_post.id}
+       delete :destroy, topic_id: my_topic.id, id: my_post.id
        count = Post.where({id: my_post.id}).size
 
        expect(count).to eq 0
      end
 
-     it "redirects to posts index" do
-       delete :destroy, {id: my_post.id}
+     it "redirects to topic show" do
+       delete :destroy, topic_id: my_topic.id, id: my_post.id
 
-       expect(response).to redirect_to posts_path
+       expect(response).to redirect_to my_topic
      end
    end
 end
