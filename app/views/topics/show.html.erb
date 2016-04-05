@@ -10,7 +10,12 @@
        <div class="media">
          <div class="media-body">
            <h4 class="media-heading">
-             <%= @post.title, post %>
+             <%= post.title %>
+             <small>
+               submitted <%= time_ago_in_words(post.created_at) %> ago <br>
+               submitted <%= time_ago_in_words(post.created_at) %> ago by <%= post.user.name %> <br>
+               <%= post.comments.count %> Comments
+             </small>
            </h4>
          </div>
        </div>
