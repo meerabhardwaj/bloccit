@@ -1,6 +1,6 @@
 class TopicsController < ApplicationController
-  before_action :require_sign_in, except: [:index, :show]
-  before_action :authorize_user, except: [:index, :show]
+  before_action :require_sign_in, except: [:index, :show, :new]
+  before_action :authorize_user, except: [:index, :show, :new]
 
   def index
     @topics = Topic.all
@@ -15,12 +15,17 @@ class TopicsController < ApplicationController
   end
 
   def create
-    @topic = Topic.new(topic_params)
+    #@topic = Topic.new(topic_params)
+    @topic = Topic.find(params[:topic_id])
+    @post = @topic.posts.build(post_params)
+    @post.user = current_user
 
     if @topic.save
-      redirect_to @topic, notice: "Topic was saved successfully"
+      flash[:notice] = "Topic was saved successfully."
+
+      redirect_to [@topic.new]
     else
-      flash.now[:alert] = "Error creating topic, please try again."
+      flash.now[:alert] = "There was an error saving the post. Please try again."
       render :new
     end
   end
